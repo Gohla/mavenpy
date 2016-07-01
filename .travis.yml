@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.3"
+  - "3.4"
+  - "3.5"
+install:
+  - python setup.py -q install
+script:
+  - nosetests
+deploy:
+  provider: pypi
+  user: Gohla
+  password:
+    secure: fWJwcJR7IaoKE/B1fLQlEv5v4MSF7p2UmvTVhXTORMQptezY0arjZd8ai9Gwk3EcYJgnfXIIKBxiIBSMfohCTxLRUl+cHHTWzdUhgdsJHeDgrvOs0OEtDxryjGpuqdn4wPL0YkIziTGvNtLT2EKNlUMwBeOZdgzJ42n+UQOC1GudZuZGiOUTa8j3vbzQOP8P5Cyntw9SVHVkOeyYqlSdtp8vFFkdzMCCMKcmgf2gONH9a/l+myDKUEzbGyaf0+DnPoFKFRAmYSrTPPCf3h17vngwwoFT7HWOvr+WDiJ/75D9Hu9c4d32x/ImgnGFo/SLxP7VfE2dyh6KqOSNOInQPqBdgZP13lSxcFWNcerFAfEzwvy3YoY1PqxreEaNNOtvzTBmJ5UaXSFfuK7m7NvZlJ2PHdQf0TpSTZLomgpJ1N/bCwju4bYNHLAgvl3KmE69dMb5f9bHWD72ukI7ayywrnSA7W1PKlmmsJSLGmK8tvqP/Q3CWicl1Aq8QunUbwdk02ugTB20tcO7O3EVGHwilseSJfZCQ69QpqacLI0wEj2ApoNuChOsP7WVwDJuKTnfHkLZUhHWIfXJm1zAJ7nZ91PTPGXkyU0+7WKgLA5JofQXYGaHwKpieNHOkw1bIgXHAvnjAgDDyA2ONQ5TlWbX9nXgWBMYlpeAIHjOG0Moo2M=
+  on:
+    tags: true
