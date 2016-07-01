@@ -1,16 +1,18 @@
 language: python
 python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
+- '3.3'
+- '3.4'
+- '3.5'
 install:
-  - python setup.py -q install
+- python setup.py -q install
 script:
-  - nosetests
+- nosetests
 deploy:
   provider: pypi
   user: Gohla
   password:
-    secure: fWJwcJR7IaoKE/B1fLQlEv5v4MSF7p2UmvTVhXTORMQptezY0arjZd8ai9Gwk3EcYJgnfXIIKBxiIBSMfohCTxLRUl+cHHTWzdUhgdsJHeDgrvOs0OEtDxryjGpuqdn4wPL0YkIziTGvNtLT2EKNlUMwBeOZdgzJ42n+UQOC1GudZuZGiOUTa8j3vbzQOP8P5Cyntw9SVHVkOeyYqlSdtp8vFFkdzMCCMKcmgf2gONH9a/l+myDKUEzbGyaf0+DnPoFKFRAmYSrTPPCf3h17vngwwoFT7HWOvr+WDiJ/75D9Hu9c4d32x/ImgnGFo/SLxP7VfE2dyh6KqOSNOInQPqBdgZP13lSxcFWNcerFAfEzwvy3YoY1PqxreEaNNOtvzTBmJ5UaXSFfuK7m7NvZlJ2PHdQf0TpSTZLomgpJ1N/bCwju4bYNHLAgvl3KmE69dMb5f9bHWD72ukI7ayywrnSA7W1PKlmmsJSLGmK8tvqP/Q3CWicl1Aq8QunUbwdk02ugTB20tcO7O3EVGHwilseSJfZCQ69QpqacLI0wEj2ApoNuChOsP7WVwDJuKTnfHkLZUhHWIfXJm1zAJ7nZ91PTPGXkyU0+7WKgLA5JofQXYGaHwKpieNHOkw1bIgXHAvnjAgDDyA2ONQ5TlWbX9nXgWBMYlpeAIHjOG0Moo2M=
+    secure: TEJqhh3/6HeULoWlugoLUIiuyqgx9iAdilTXo00WUk+mToJpI8MMICJigTgjt0Jbwii8/+m8g5PIMbhqckXyON/rKtpFYC34Csef/CY24YuIjE8XqNihf7dkWoy+ruGwYn3DHhmEDxxseU5a+6u+j10l/Cwghjv667eQjNAHgnJgHbI7UY0cv9mIDlYwAfS9XMGI/Y79Yi5rwbUZm0Nno9Vaoo1MN6+f1W4oNULYAcOQu8b8t4q3zWy28gZVEan7PVOjCITA/eEPjJ/4o8naik372krQvKEgXBDxHnBATSPRK11YZvgva7qJDTZznaLkHSbdtmvOJbZxvWfxBx7pdkVacXqJiBbhugeeg413JxMp5dnph1bc18LwOobgq830lmqnwJ5HYFjw419EIOz8UdbSBAfWhKPSSZDZlUDs953twbNc6hQyhyxCgP4YvLM6qwRAWj1oBL52VlE+XgIyiT8hQaJgX1JEsuATiYwUcXhjrAOj8nQNHsvszzJ/cOZdKAfcXwX71Ke+yQfbxkito9l4ZVAcxLx5qlgVgnmLuQlUs0DtyfT63AorawzSt3lg1tczjl/dJWqilKdBvDingr/cBV+LaV5Et7VSUXJPb8f2BipnceZBHXWpKAGFrSZCZH1qvNoA7dPettvE9XIm9ApUw4dlg6nMcNdUTXjW5qE=
   on:
     tags: true
+    distributions: sdist bdist_wheel
+    repo: Gohla/mavenpy
