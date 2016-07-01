@@ -9,7 +9,7 @@ setup(
   author_email='gabrielkonat@gmail.com',
   license='Apache 2.0',
   packages=['mavenpy'],
-  requires=['pystache'],
+  install_requires=['pystache'],
   test_suite='nose.collector',
   tests_require=['nose']
 )
