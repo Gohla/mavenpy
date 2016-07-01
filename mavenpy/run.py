@@ -1,5 +1,4 @@
 import os
-import platform
 import subprocess
 from shutil import which
 
@@ -39,11 +38,7 @@ class Maven(object):
   def run(self, cwd, buildFile, *extraTargets, **extraProperties):
     args = []
 
-    if platform.system() == 'Windows':
-      path = which('mvn') or which('mvn.bat') or which('mvn.cmd')
-    else:
-      path = which('mvn')
-
+    path = which('mvn')
     if path:
       args.append(path)
     else:
