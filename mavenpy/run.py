@@ -1,5 +1,6 @@
 import os
 import subprocess
+import re
 from shutil import which
 
 
@@ -108,3 +109,41 @@ class Maven(object):
         raise RuntimeError("Maven run failed")
     except KeyboardInterrupt:
       raise RuntimeError("Maven run interrupted")
+
+  versionRegex = re.compile(r"\s*Apache\s+Maven\s+([\d\.]+)")
+
+  def get_version(self, cwd=None):
+    args = []
+
+    path = which('mvn')
+    if path:
+      args.append(path)
+    else:
+      raise RuntimeError("Cannot run Maven, executable not found on the path")
+
+    args.append('--version')
+    
+    env = os.environ.copy()
+    if self.opts:
+      env['MAVEN_OPTS'] = self.opts
+    env.update(self.env)
+
+    cmd = ' '.join(args)
+    if self.opts:
+      print('MAVEN_OPTS="{}" {}'.format(self.opts, cmd))
+    else:
+      print(cmd)
+    try:
+      process = subprocess.Popen(cmd, cwd=cwd, env=env, shell=True, stdout=subprocess.PIPE)
+
+      firstLine = process.stdout.readline().decode('utf-8').rstrip()
+
+      process.communicate()
+
+      if process.returncode != 0:
+        raise RuntimeError("Maven command failed")
+      if not firstLine:
+        raise RuntimeError("Maven command did not print anything")
+      return self.versionRegex.search(firstLine).group(1)
+    except KeyboardInterrupt:
+      raise RuntimeError("Maven command interrupted")
