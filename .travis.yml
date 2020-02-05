@@ -4,16 +4,21 @@ python:
 - '3.5'
 - '3.6'
 - '3.7'
+- '3.8'
 install:
+- python setup.py -q clean --all
 - python setup.py -q install
 script:
 - nosetests
 deploy:
+  skip_cleanup: true
   provider: pypi
   user: Gohla
   password:
     secure: TEJqhh3/6HeULoWlugoLUIiuyqgx9iAdilTXo00WUk+mToJpI8MMICJigTgjt0Jbwii8/+m8g5PIMbhqckXyON/rKtpFYC34Csef/CY24YuIjE8XqNihf7dkWoy+ruGwYn3DHhmEDxxseU5a+6u+j10l/Cwghjv667eQjNAHgnJgHbI7UY0cv9mIDlYwAfS9XMGI/Y79Yi5rwbUZm0Nno9Vaoo1MN6+f1W4oNULYAcOQu8b8t4q3zWy28gZVEan7PVOjCITA/eEPjJ/4o8naik372krQvKEgXBDxHnBATSPRK11YZvgva7qJDTZznaLkHSbdtmvOJbZxvWfxBx7pdkVacXqJiBbhugeeg413JxMp5dnph1bc18LwOobgq830lmqnwJ5HYFjw419EIOz8UdbSBAfWhKPSSZDZlUDs953twbNc6hQyhyxCgP4YvLM6qwRAWj1oBL52VlE+XgIyiT8hQaJgX1JEsuATiYwUcXhjrAOj8nQNHsvszzJ/cOZdKAfcXwX71Ke+yQfbxkito9l4ZVAcxLx5qlgVgnmLuQlUs0DtyfT63AorawzSt3lg1tczjl/dJWqilKdBvDingr/cBV+LaV5Et7VSUXJPb8f2BipnceZBHXWpKAGFrSZCZH1qvNoA7dPettvE9XIm9ApUw4dlg6nMcNdUTXjW5qE=
   on:
-    tags: true
-    distributions: sdist bdist_wheel
     repo: Gohla/mavenpy
+    branch: master
+    tags: true
+    condition: $TRAVIS_PYTHON_VERSION = "3.6"
+    distributions: sdist bdist_wheel
