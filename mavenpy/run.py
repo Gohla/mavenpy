@@ -129,10 +129,7 @@ class Maven(object):
     env.update(self.env)
 
     cmd = ' '.join(args)
-    if self.opts:
-      print('MAVEN_OPTS="{}" {}'.format(self.opts, cmd))
-    else:
-      print(cmd)
+    
     try:
       process = subprocess.Popen(cmd, cwd=cwd, env=env, shell=True, stdout=subprocess.PIPE)
 
@@ -144,6 +141,10 @@ class Maven(object):
         raise RuntimeError("Maven command failed")
       if not firstLine:
         raise RuntimeError("Maven command did not print anything")
-      return self.versionRegex.search(firstLine).group(1)
+      versionMatch = self.versionRegex.search(firstLine)
+      if not versionMatch:
+        # Could not determine version string
+        return None
+      return versionMatch.group(1)
     except KeyboardInterrupt:
       raise RuntimeError("Maven command interrupted")
