@@ -13,10 +13,12 @@ class Maven(object):
     self.settingsFile = None
     self.globalSettingsFile = None
     self.localRepo = None
+    self.daemon = False
 
     self.profiles = []
 
     self.skipTests = False
+    self.threads = '1'
 
     self.noSnapshotUpdates = False
     self.forceSnapshotUpdate = False
@@ -37,9 +39,10 @@ class Maven(object):
     self.run(None, buildFile, *extraTargets, **extraProperties)
 
   def run(self, cwd, buildFile, *extraTargets, **extraProperties):
+    command = 'mvnd' if self.daemon else 'mvn'
     args = []
 
-    path = which('mvn')
+    path = which(command)
     if path:
       args.append(path)
     else:
@@ -61,6 +64,10 @@ class Maven(object):
     if self.skipTests:
       args.append('-Dmaven.test.skip=true')
       args.append('-DskipTests=true')
+    if self.threads:
+      args.append('--threads {}'.format(self.threads))
+      if self.daemon and self.threads == '1':
+        args.append('--serial')
 
     if self.noSnapshotUpdates:
       args.append('--no-snapshot-updates')
@@ -94,11 +101,14 @@ class Maven(object):
 
     env = os.environ.copy()
     if self.opts:
-      env['MAVEN_OPTS'] = self.opts
+      if self.daemon:
+        args.append('-Dmvnd.jvmArgs="{}"'.format(self.opts))
+      else:
+        env['MAVEN_OPTS'] = self.opts
     env.update(self.env)
 
     cmd = ' '.join(args)
-    if self.opts:
+    if not self.daemon and self.opts:
       print('MAVEN_OPTS="{}" {}'.format(self.opts, cmd))
     else:
       print(cmd)
@@ -113,9 +123,10 @@ class Maven(object):
   versionRegex = re.compile(r"\s*Apache\s+Maven\s+([\d\.]+)")
 
   def get_version(self, cwd=None):
+    command = 'mvnd' if self.daemon else 'mvn'
     args = []
 
-    path = which('mvn')
+    path = which(command)
     if path:
       args.append(path)
     else:
