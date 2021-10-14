@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name='mavenpy',
-  version='0.1.4',
+  version='0.1.5',
   description='Wrapper for calling Maven from Python',
   url='http://github.com/Gohla/mavenpy',
   author='Gabriel Konat',
